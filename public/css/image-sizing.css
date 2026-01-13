@@ -1,0 +1,155 @@
+/* -------------------------
+ IMAGE SIZING AND ASPECT RATIO
+--------------------------*/
+
+/* Main Article Image */
+.main-img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    border-radius: 12px;
+    margin: 20px 0;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 16 / 9;
+}
+
+/* Advertise/Banner Image - Left Column */
+.advertise-img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    border-radius: 10px;
+    margin: 20px 0;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 4 / 3;
+}
+
+/* Highlight Thumbnail Images - Right Sidebar */
+.hl-thumb img {
+    width: 70px;
+    height: 55px;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: auto;
+}
+
+/* News List Images - Right Sidebar */
+.news-img {
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+    aspect-ratio: auto;
+}
+
+/* Description Inline Images */
+.desc img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 15px 0;
+}
+
+/* Responsive: Tablet and Below */
+@media (max-width: 768px) {
+    .main-img {
+        max-height: 400px;
+        margin: 15px 0;
+    }
+
+    .advertise-img {
+        max-height: 200px;
+        margin: 15px 0;
+    }
+
+    .hl-thumb img {
+        width: 60px;
+        height: 50px;
+    }
+
+    .news-img {
+        width: 100%;
+        height: 180px;
+    }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 600px) {
+    .main-img {
+        max-height: 300px;
+        margin: 12px 0;
+        border-radius: 10px;
+    }
+
+    .advertise-img {
+        max-height: 180px;
+        margin: 12px 0;
+        border-radius: 8px;
+    }
+
+    .hl-thumb img {
+        width: 55px;
+        height: 45px;
+        border-radius: 5px;
+    }
+
+    .news-img {
+        width: 100%;
+        height: 160px;
+        border-radius: 6px;
+    }
+
+    .desc img {
+        max-width: 100%;
+        margin: 12px 0;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .main-img {
+        max-height: 250px;
+        border-radius: 8px;
+    }
+
+    .advertise-img {
+        max-height: 150px;
+        border-radius: 6px;
+    }
+
+    .hl-thumb img {
+        width: 50px;
+        height: 40px;
+    }
+
+    .news-img {
+        height: 140px;
+    }
+}
+
+/* High DPI Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .main-img,
+    .advertise-img,
+    .hl-thumb img,
+    .news-img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Prevent image distortion on zoom */
+@supports (aspect-ratio: auto) {
+    .main-img {
+        aspect-ratio: 16 / 9;
+    }
+
+    .advertise-img {
+        aspect-ratio: 4 / 3;
+    }
+}

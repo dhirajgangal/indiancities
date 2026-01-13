@@ -1,0 +1,396 @@
+/* city-news.css - City News Page Styles */
+
+/* Container switches from 1 → 2 → 3 columns */
+.news-section-container {
+  max-width: 1375px;
+  width: 100%;
+  margin: 50px auto;
+  padding: 0 20px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+/* Tablet: 2 columns (left + center merged, right separate) */
+@media (min-width: 768px) {
+  .news-section-container {
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  .news-left {
+    grid-column: 1;
+  }
+  
+  .news-center {
+    grid-column: 1;
+  }
+  
+  .news-right {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .news-section-container {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  
+  .news-left {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  
+  .news-center {
+    grid-column: 2;
+    grid-row: auto;
+  }
+  
+  .news-right {
+    grid-column: 3;
+    grid-row: auto;
+  }
+}
+
+/* Ensure direct children map to columns consistently */
+.news-left,
+.news-center,
+.news-right {
+  min-width: 0;
+}
+
+/* =============================== 
+   LEFT COLUMN - MINI CARDS
+   =============================== */
+
+.mini-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+/* Hover Animation */
+.mini-card:hover {
+  background: #f9fafb;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-color: #E63946;
+}
+
+/* Image styling + zoom on hover */
+.mini-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.mini-card:hover img {
+  transform: scale(1.05);
+}
+
+.mini-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.4;
+  margin-top: 10px;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.mini-card:hover .mini-title {
+  color: #E63946;
+}
+
+/* =============================== 
+   CENTER COLUMN - DAILY NEWS
+   =============================== */
+
+.daily-news-title {
+  color: #E63946;
+  font-family: 'AAVishal', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  margin-bottom: 25px;
+  line-height: 1.2;
+}
+
+.daily-news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* News Item Card */
+.daily-news-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+  padding: 18px;
+  border-radius: 10px;
+  background: #fff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Hover Effect */
+.daily-news-item:hover {
+  background: #f9fafb;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-color: #e63946;
+}
+
+/* Text Section */
+.daily-news-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.daily-news-text h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.daily-news-text p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+}
+
+/* News Date */
+.news-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #888;
+  margin-top: 6px;
+}
+
+/* Headline Text Hover Color */
+.daily-news-item:hover h3 {
+  color: #e63946;
+}
+
+/* Image Section */
+.daily-news-img {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.daily-news-img img {
+  width: 100%;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* Subtle zoom effect on hover */
+.daily-news-item:hover .daily-news-img img {
+  transform: scale(1.05);
+}
+
+/* =============================== 
+   RIGHT COLUMN - ADVERTISEMENT
+   =============================== */
+
+.city-advertisement {
+  width: 100%;
+  max-width: 302px;
+  height: auto;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* =============================== 
+   NO NEWS EMPTY STATE
+   =============================== */
+
+.no-news {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  color: #666;
+}
+
+.no-news p {
+  font-size: 18px;
+  color: #888;
+  margin: 0;
+}
+
+/* =============================== 
+   PAGINATION
+   =============================== */
+
+.pagination-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-wrapper nav {
+  display: inline-flex;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pagination-wrapper .pagination {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+.pagination-wrapper .page-item {
+  margin: 0;
+}
+
+.pagination-wrapper .page-link {
+  padding: 10px 16px;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-right: none;
+  background: #fff;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+
+.pagination-wrapper .page-item:last-child .page-link {
+  border-right: 1px solid #ddd;
+}
+
+.pagination-wrapper .page-link:hover {
+  background: #f0f0f0;
+  color: #E63946;
+}
+
+.pagination-wrapper .page-item.active .page-link {
+  background: #E63946;
+  color: #fff;
+  border-color: #E63946;
+  font-weight: 600;
+}
+
+.pagination-wrapper .page-item.disabled .page-link {
+  color: #999;
+  cursor: not-allowed;
+  background: #f9f9f9;
+}
+
+/* =============================== 
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* Mobile phones */
+@media (max-width: 767px) {
+  .news-section-container {
+    padding: 0 15px;
+    margin: 30px auto;
+    gap: 20px;
+  }
+
+  .daily-news-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .daily-news-item {
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .daily-news-text h3 {
+    font-size: 18px;
+  }
+
+  .daily-news-text p {
+    font-size: 14px;
+  }
+
+  .daily-news-img {
+    width: 100%;
+  }
+
+  .daily-news-img img {
+    height: 200px;
+    width: 100%;
+  }
+
+  .mini-card {
+    margin-top: 15px;
+  }
+
+  .mini-title {
+    font-size: 16px;
+  }
+
+  .city-advertisement {
+    max-width: 100%;
+  }
+
+  .pagination-wrapper .page-link {
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 38px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .daily-news-title {
+    font-size: 30px;
+  }
+
+  .daily-news-text h3 {
+    font-size: 19px;
+  }
+
+  .daily-news-img {
+    width: 130px;
+  }
+
+  .daily-news-img img {
+    height: 90px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1400px) {
+  .news-section-container {
+    max-width: 1400px;
+  }
+}
