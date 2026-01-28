@@ -284,7 +284,13 @@
         <div class="container">
             <div class="header-top">
                 <div class="header-info">
-                    <span>02 अक्टूबर 2025, शुक्रवार</span>
+                    @php
+                        use Carbon\Carbon;
+                        Carbon::setLocale('hi');
+                        setlocale(LC_TIME, 'hi_IN.UTF-8');
+                        $now = Carbon::now();
+                    @endphp
+                    <span>{{ $now->translatedFormat('d F Y') }}, {{ $now->translatedFormat('l') }}</span>
                 </div>
                 <div class="header-search">
                     <span>द मेनू</span>

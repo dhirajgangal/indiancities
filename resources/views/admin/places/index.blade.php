@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'News Management')
+@section('title', 'Places Management')
 
 @section('content')
 <!-- Page Header -->
 <div class="page-header">
     <h1>
-        <i class="fas fa-newspaper"></i> Manage News
+        <i class="fas fa-map-marker-alt"></i> Manage Places
     </h1>
-    <a href="{{ route('admin.news.create') }}" class="btn-primary">
-        <i class="fas fa-plus"></i> Add New News
+    <a href="{{ route('admin.places.create') }}" class="btn-primary">
+        <i class="fas fa-plus"></i> Add New Place
     </a>
 </div>
 
@@ -23,7 +23,7 @@
 
 <!-- Search Bar -->
 <form method="GET" class="search-bar">
-    <input type="text" name="search" placeholder="Search news..." value="{{ $search }}" style="flex:1;">
+    <input type="text" name="search" placeholder="Search places..." value="{{ $search }}" style="flex:1;">
     
     <select name="city">
         <option value="">All Cities</option>
@@ -41,12 +41,12 @@
     </select>
 
     <button type="submit"><i class="fas fa-search"></i> Search</button>
-    <a href="{{ route('admin.news.index') }}" class="btn-primary" style="background: #6c757d;">Reset</a>
+    <a href="{{ route('admin.places.index') }}" class="btn-primary" style="background: #6c757d;">Reset</a>
 </form>
 
 <!-- Table Container -->
 <div class="table-container">
-    @if($news->count() > 0)
+    @if($places->count() > 0)
         <table>
             <thead>
                 <tr>
@@ -59,29 +59,29 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($news as $newsItem)
+                @foreach($places as $item)
                     <tr>
                         <td>
-                            @if($newsItem->image)                                
-                                <img src="{{ strpos($newsItem->image, 'http') !== false ?  $newsItem->image : asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}" class="img-thumbnail">
+                            @if($item->image)                                
+                                <img src="{{ strpos($item->image, 'http') !== false ?  $item->image : asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="img-thumbnail">
                             @else
                                 <span style="color: #ccc;">No Image</span>
                             @endif
                         </td>
-                        <td><strong>{{ Str::limit($newsItem->title, 30) }}</strong></td>
-                        <td>{{ $newsItem->city->name }}</td>
-                        <td>{{ $newsItem->published_date?->format('M d, Y') ?? '-' }}</td>
+                        <td><strong>{{ Str::limit($item->title, 30) }}</strong></td>
+                        <td>{{ $item->city->name }}</td>
+                        <td>{{ $item->published_date?->format('M d, Y') ?? '-' }}</td>
                         <td>
-                            <span class="status-badge {{ $newsItem->status ? 'status-active' : 'status-inactive' }}">
-                                {{ $newsItem->status ? 'Active' : 'Inactive' }}
+                            <span class="status-badge {{ $item->status ? 'status-active' : 'status-inactive' }}">
+                                {{ $item->status ? 'Active' : 'Inactive' }}
                             </span>
                         </td>
                         <td>
                             <div class="action-buttons">
-                                <button type="button" onclick="window.location='{{ route('admin.news.edit', $newsItem) }}';" class="btn-sm btn-edit">
+                                <button type="button" onclick="window.location='{{ route('admin.places.edit', $item) }}';" class="btn-sm btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </button>
-                                <form method="POST" action="{{ route('admin.news.destroy', $newsItem) }}" style="display:inline;" data-confirm="Delete this news?">
+                                <form method="POST" action="{{ route('admin.places.destroy', $item) }}" style="display:inline;" data-confirm="Delete this place?">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn-sm btn-delete">
                                         <i class="fas fa-trash"></i> Delete
@@ -96,12 +96,12 @@
 
         <!-- Pagination -->
         <div class="admin-pagination">
-            {{ $news->links('pagination::bootstrap-5') }}
+            {{ $places->links('pagination::bootstrap-5') }}
         </div>
     @else
         <div class="no-data">
             <i class="fas fa-inbox"></i>
-            <p>No news found. <a href="{{ route('admin.news.create') }}" style="color: #667eea;">Create one now</a></p>
+            <p>No places found. <a href="{{ route('admin.places.create') }}" style="color: #667eea;">Create one now</a></p>
         </div>
     @endif
 </div>

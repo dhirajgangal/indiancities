@@ -14,6 +14,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
 Route::get('/cities/{slug}', [CityController::class, 'show'])->name('cities.show');
 Route::get('/cities/{city}/news/{news}', [CityController::class, 'showNews'])->name('news.show');
+Route::get('/cities/{citySlug}/place/{placeSlug}', [CityController::class, 'showPlace'])->name('place.show');
 // Add a route to handle dynamic city news pages
 // Route::get('/city-news/{slug}', [CityController::class, 'showCityNews'])->name('city.news');
 // Admin Routes
@@ -41,6 +42,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     
     // Videos Management
     Route::resource('videos', \App\Http\Controllers\Admin\VideoController::class);
+
+    // Places Management (dynamic categories)
+    Route::resource('places', \App\Http\Controllers\Admin\PlaceController::class)->names('places');
+        // Route::resource('place-categories', \App\Http\Controllers\Admin\PlaceCategoryController::class)->names('place_categories');
     
 });
 

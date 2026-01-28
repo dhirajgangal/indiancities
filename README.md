@@ -57,3 +57,39 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+cd /home/u125920537/domains/indiancities.in/public_html
+
+/opt/alt/php82/usr/bin/php app:get-news-command
+
+ssh -p 65002 u125920537@93.127.208.112
+allfreePokerr@22
+
+
+Website :  https://indiancities.in/
+News admin login
+
+https://indiancities.in/login
+
+news@admin.com
+
+Pass :  password
+
+Hosting login
+https://auth.hostinger.com/in/login
+shekhar373@gmail.com
+Pass :  allfreePokerr@22
+
+1 Read more link in article 
+2 City history will enter from admin 
+3 Video will be added from admin 
+4 remove news 15 days old
+
+
+1 show city history on city page at top - Done
+2 show related video in same city page - done
+3 make city history detaild page - done
+4 same for video detail page - done
+
+

@@ -26,7 +26,9 @@ class NewsController extends Controller
             $query->where('city_id', $city);
         }
 
-        $news = $query->paginate($perPage);
+        $news = $query->paginate($perPage)->withQueryString();
+        // show current page +/-2 links (max 5 visible page numbers)
+        $news->onEachSide(2);
         $cities = City::all();
 
         return view('admin.news.index', compact('news', 'cities', 'search', 'city', 'perPage'));
@@ -37,30 +39,6 @@ class NewsController extends Controller
         $cities = City::all();
         return view('admin.news.create', compact('cities'));
     }
-
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'city_id' => 'required|exists:cities,id',
-    //         'title' => 'required|string',
-    //         'description' => 'required|string',
-    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //         'published_date' => 'nullable|date',
-    //         'status' => 'boolean',
-    //     ]);
-
-    //     if ($request->hasFile('image')) {
-    //         $imagePath = $request->file('image')->store('news', 'public');
-    //         $validated['image'] = $imagePath;
-    //     }
-
-    //     $validated['status'] = $request->has('status');
-
-    //     News::create($validated);
-
-    //     return redirect()->route('admin.news.index')
-    //                     ->with('success', 'News created successfully!');
-    // }
 
     public function store(Request $request)
     {

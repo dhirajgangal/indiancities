@@ -168,47 +168,23 @@
     <div class="container video-section">
         <h2 class="section-title">वीडियो</h2>
         <div class="video-grid">
+            @foreach($videos as $video)
             <div class="video-card">
                 <div class="video-thumbnail">
                     <div class="video-el">
-                        <iframe width="400" height="200" src="https://www.youtube.com/embed/e3obkfebQuY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="play-button">
-                        <i class="bi bi-play-fill"></i>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <p class="mb-0">दिल्ली के ऐतिहासिक स्थल</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <div class="video-el">
-                        <iframe width="400" height="200" src="https://www.youtube.com/embed/e3obkfebQuY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="play-button">
-                        <i class="bi bi-play-fill"></i>
+                        @php
+                            // Extract YouTube video ID from various possible URL formats
+                            preg_match('/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"\'<> #]+)/', $video->youtube_url, $matches);
+                            $videoId = $matches[5] ?? null;
+                        @endphp
+                        <iframe width="400" height="200" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="video-info">
-                    <p class="mb-0">मुंबई का इतिहास</p>
+                    <p class="mb-0">{{ $video->title }}</p>
                 </div>
             </div>
-
-            <div class="video-card">
-                <div class="video-thumbnail">
-                    <div class="video-el">
-                        <iframe width="400" height="200" src="https://www.youtube.com/embed/e3obkfebQuY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="play-button">
-                        <i class="bi bi-play-fill"></i>
-                    </div>
-                </div>
-                <div class="video-info">
-                    <p class="mb-0">लखनऊ की संस्कृति</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 

@@ -255,6 +255,21 @@
   justify-content: center;
 }
 
+/* Pagination area: info + controls */
+.pagination-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.pagination-info {
+  color: #666;
+  font-size: 14px;
+}
+
 .pagination-wrapper nav {
   display: inline-flex;
   border-radius: 8px;

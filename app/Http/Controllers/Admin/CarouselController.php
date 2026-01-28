@@ -29,7 +29,7 @@ class CarouselController extends Controller
             'icon' => 'nullable|string|max:255',
             'link' => 'nullable|url|max:255',
             'order' => 'nullable|integer',
-            'active' => 'boolean',
+            'status' => 'boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -37,7 +37,7 @@ class CarouselController extends Controller
             $validated['image'] = $path;
         }
 
-        $validated['active'] = $request->has('active');
+        $validated['status'] = $request->has('status');
 
         // Ensure unique ordering: if order provided, push existing items with same or greater order down by 1
         \DB::transaction(function() use ($validated) {
@@ -69,7 +69,7 @@ class CarouselController extends Controller
             'icon' => 'nullable|string|max:255',
             'link' => 'nullable|url|max:255',
             'order' => 'nullable|integer',
-            'active' => 'boolean',
+            'status' => 'boolean',
         ]);
 
         if ($request->has('remove_image') && $request->input('remove_image')) {
@@ -87,7 +87,7 @@ class CarouselController extends Controller
             $validated['image'] = $path;
         }
 
-        $validated['active'] = $request->has('active');
+        $validated['status'] = $request->has('status');
 
         // Handle order changes: if order provided and different, swap with existing item if present,
         // otherwise just set the new order. Use transaction to keep uniqueness.
@@ -112,7 +112,7 @@ class CarouselController extends Controller
             $carousel->icon = $validated['icon'] ?? $carousel->icon;
             $carousel->link = $validated['link'] ?? $carousel->link;
             if (array_key_exists('image', $validated)) $carousel->image = $validated['image'];
-            $carousel->active = $validated['active'];
+            $carousel->status = $validated['status'];
             $carousel->save();
         });
 

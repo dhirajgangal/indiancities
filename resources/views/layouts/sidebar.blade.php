@@ -49,6 +49,15 @@
                 <span>Home Content</span>
             </a>
         </li>
+        
+        <!-- Places (Dynamic) -->
+        <li>
+            <a href="{{ route('admin.places.index') }}" 
+               class="@if(str_contains(Route::currentRouteName(), 'places') && !str_contains(Route::currentRouteName(), 'place_categories')) active @endif">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Places</span>
+            </a>
+        </li>
 
         <!-- Logout -->
         <li>

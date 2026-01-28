@@ -12,22 +12,28 @@
     <div class="news-section-container">
         <!-- Left Column (Static for now) -->
         <div class="news-left">
-            <h2 class="daily-news-title">{{ $city->name }} के घाव</h2>
+            <h2 class="daily-news-title">{{ $city->name }} के स्थान</h2>
             
             <!-- Static cards - you can make these dynamic later -->
-            <article class="mini-card">
-                <img src="{{ asset('assets/image 12.png') }}" alt="story thumbnail">
-                <a href="#" class="mini-title">
-                    {{ $city->name }} में दिवाली से पहले नकली घी बनाने वाला बड़ा रैकेट पकड़ा, 6 गिरफ्तार
+            @if ($places->isEmpty())
+                <p>Comming soon more about of {{ $city->name }}.</p>
+            @else
+                @foreach ($places as $place) 
+                <a href="{{ route('place.show', ['citySlug' => $city->slug, 'placeSlug' => $place->slug]) }}" class="mini-card-link">
+                    <article class="mini-card">
+                        @if ($place->image)
+                        <img src="{{ asset('storage/' . $place->image) }}" alt="{{ $place->title }}" class="mini-card-img">
+                        @else
+                        <img src="{{ asset('assets/no-image.png') }}" alt="story thumbnail">
+                        @endif
+                        <a href="{{ route('place.show', ['citySlug' => $city->slug, 'placeSlug' => $place->slug]) }}" class="mini-title">
+                            {{ $place->title }}
+                        </a>
+                    </article>
                 </a>
-            </article>
-
-            <article class="mini-card">
-                <img src="{{ asset('assets/image 13.png') }}" alt="story thumbnail">
-                <a href="#" class="mini-title">
-                    {{ $city->name }}: 500 सीसीटीवी खंगालने के बाद... आरोपी गिरफ्तार, ऑडि़ कार भी बरामद
-                </a>
-            </article>
+                @endforeach
+            @endif
+            
         </div>
 
         <!-- Center Column (Dynamic - Admin News) -->
@@ -36,7 +42,7 @@
 
             <div class="daily-news-list">
                 @forelse($news as $newsItem)
-                    <a href="{{ route('news.show', ['city' => $city->slug ?? $city->id, 'news' => $newsItem->id]) }}" class="daily-news-item">
+                    <a href="{{ $newsItem->source_link }}" target="_blank" class="daily-news-item">
                         <div class="daily-news-text">
                             <h3>{{ $newsItem->title }}</h3>
                             <p>{{ Str::limit(strip_tags($newsItem->description), 150, '...') }}</p>
@@ -49,7 +55,7 @@
                         </div>
                         @if($newsItem->image)
                             <div class="daily-news-img">
-                                <img src="{{ asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}">
+                                <img src="{{ strpos($newsItem->image, 'http') !== false ?  $newsItem->image : asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}">
                             </div>
                         @else
                             <div class="daily-news-img">
@@ -67,8 +73,10 @@
 
             <!-- Pagination -->
             @if($news->hasPages())
-                <div class="pagination-wrapper">
-                    {{ $news->links() }}
+                <div class="pagination-area">
+                    <div class="pagination-wrapper">
+                        {{ $news->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             @endif
         </div>

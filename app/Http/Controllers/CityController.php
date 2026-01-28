@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\News;
+use App\Models\Place;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -43,7 +44,14 @@ class CityController extends Controller
                      ->select('id', 'name', 'slug')
                      ->get();
 
-        return view('cities.show', compact('city', 'news', 'cities'));
+        $places = Place::where('city_id', $city->id)
+                   ->where('status', true)
+                   ->orderBy('published_date', 'desc')
+                   ->orderBy('created_at', 'desc')
+                   ->limit(10)
+                   ->get();
+
+        return view('cities.show', compact('city', 'news', 'cities', 'places'));
     }
 
     /**
@@ -84,5 +92,34 @@ class CityController extends Controller
                        ->get();
 
         return view('cities.news-detail', compact('city', 'news', 'relatedNews', 'cities', 'topNews'));
+    }
+
+    public function showPlace($citySlug, $placeSlug)
+    {
+        // Find city
+        $city = City::where('slug', $citySlug)
+                   ->orWhere('id', $citySlug)
+                   ->firstOrFail();
+
+        // Find place belonging to this city
+        $place = Place::where('slug', $placeSlug)
+                   ->where('city_id', $city->id)
+                   ->where('status', true)
+                   ->firstOrFail();
+
+        // Get all active cities for navbar
+        $cities = City::where('status', true)
+                     ->where('visible_on_homepage', true)
+                     ->select('id', 'name', 'slug')
+                     ->get();
+
+        // Get top news for highlights sidebar
+        $topNews = News::where('status', true)
+                       ->orderBy('published_date', 'desc')
+                       ->orderBy('created_at', 'desc')
+                       ->limit(5)
+                       ->get();
+
+        return view('cities.place-detail', compact( 'city', 'place', 'cities', 'topNews'));
     }
 }

@@ -16,6 +16,6 @@ class CarouselItem extends Model
         'icon',
         'link',
         'order',
-        'active',
+        'status',
     ];
 }

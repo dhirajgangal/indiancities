@@ -1,6 +1,6 @@
 @extends('layouts.mainheader')
 
-@section('title', $news->title . ' - ' . $city->name)
+@section('title', $place->title . ' - ' . $city->name)
 
 @section('styles')
 <link href="{{ asset('css/news-detail.css') }}" rel="stylesheet">
@@ -18,59 +18,31 @@
             <!-- NEWS HEADER (DYNAMIC) -->
             <div>
                 <h1 class="ns-heading">
-                    {{ $city->name }} News: <br> {{ $news->title }}
+                    {{ $city->name }} Places: <br> {{ $place->title }}
                 </h1>
 
                 <p>
                     Published -
-                    {{ $news->published_date ? $news->published_date->format('F d, Y h:iA') : '' }} IST -
+                    {{ $place->published_date ? $place->published_date->format('F d, Y h:iA') : '' }} IST -
                     {{ $city->name }}
                 </p>
             </div>
 
             <!-- MAIN IMAGE -->
             <div>
-                @if($news->image)
-                    <img src="{{ strpos($news->image, 'http') !== false ?  $news->image : asset('storage/' . $news->image) }}"
-                         alt="{{ $news->title }}"
-                         class="main-img">
+                @if ($place->image)
+                    <img src="{{ asset('storage/' . $place->image) }}" alt="{{ $place->title }}" class="main-img">
                 @else
-                    <img src="/assets/image-placeholder.png" class="main-img" alt="">
+                    <img src="{{ asset('assets/no-image.png') }}" alt="story thumbnail" class="main-img">
                 @endif
             </div>
 
             <!-- DESCRIPTION -->
             <div>
                 <p class="desc">
-                    {!! $news->description !!}
+                    {!! $place->description !!}
                 </p>
-            </div>
-
-            <!-- STATIC -->
-            <h2 class="span">ये भी पढ़े</h2>
-
-            <div class="banner">
-                <h3>
-                    <span style="font-weight:bold; color:#d32f2f;">Gurugram News:</span>
-                    वरिष्ठ अधिवक्ता एन हरिहरन ने कहा कि यह एक
-                </h3>
-            </div>
-
-            <p class="desc">
-                नई अधिवक्ता किसी बात से आहत था तो कोर्ट ऑफिसर होने के नाते वह कानूनी तरीका अपना सकता था। ब्यूरो
-            </p>
-
-            <h2 class="span">ये भी पढ़े</h2>
-
-            <p class="desc">
-                नई दिल्ली। अगर, अधिवक्ता किसी बात से आहत था तो कोर्ट ऑफिसर होने के नाते वह कानूनी तरीका अपना सकता था। ब्यूरो
-            </p>
-
-            <img src="/assets/image 6.png" alt="advertise-img" class="advertise-img">
-
-            <div class="desc">
-                For power, but for service, and our offices are meant to nurture that spirit.
-            </div>
+            </div>            
         </div>
 
 

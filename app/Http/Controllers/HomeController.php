@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\CarouselItem;
+use App\Models\Video;
+use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -15,9 +17,11 @@ class HomeController extends Controller
                   ->with('histories')
                   ->get();
 
-        $carousel = CarouselItem::where('active', true)->orderBy('order')->get();
+        $carousel = CarouselItem::where('status', true)->orderBy('order')->get();
 
-        return view('index', compact('cities', 'carousel'));
+        $videos = Video::where('status', true)->orderBy('created_at')->limit(6)->get();
+
+        return view('index', compact('cities', 'carousel', 'videos'));
     }
 
     public function show($slug)
