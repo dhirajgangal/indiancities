@@ -31,11 +31,11 @@
             <!-- MAIN IMAGE -->
             <div>
                 @if($news->image)
-                    <img src="{{ strpos($news->image, 'http') !== false ?  $news->image : asset('storage/' . $news->image) }}"
-                         alt="{{ $news->title }}"
-                         class="main-img">
+                <img src="{{ strpos($news->image, 'http') !== false ?  $news->image : asset('storage/' . $news->image) }}"
+                    alt="{{ $news->title }}"
+                    class="main-img">
                 @else
-                    <img src="/assets/image-placeholder.png" class="main-img" alt="">
+                <img src="/assets/image-placeholder.png" class="main-img" alt="">
                 @endif
             </div>
 

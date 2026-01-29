@@ -13,9 +13,9 @@ class HomeController extends Controller
     public function index()
     {
         $cities = City::where('status', true)
-                  ->where('visible_on_homepage', true)
-                  ->with('histories')
-                  ->get();
+            ->where('visible_on_homepage', true)
+            ->with('histories')
+            ->get();
 
         $carousel = CarouselItem::where('status', true)->orderBy('order')->get();
 
@@ -27,15 +27,15 @@ class HomeController extends Controller
     public function show($slug)
     {
         $city = City::where('slug', $slug)->first();
-        
+
         if (!$city) {
             abort(404, 'City not found');
         }
 
         $cities = City::where('status', true)
-                  ->where('visible_on_homepage', true)
-                  ->select('id', 'name', 'slug')
-                  ->get();
+            ->where('visible_on_homepage', true)
+            ->select('id', 'name', 'slug')
+            ->get();
 
         $carousel = CarouselItem::where('active', true)->orderBy('order')->get();
 

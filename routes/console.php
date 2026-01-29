@@ -9,9 +9,9 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-// Schedule::call(function () {
-//     Log::info('✅ Laravel 12 scheduler executed at '.now());
-// })->everyMinute();
+Schedule::call(function () {
+    Log::info('✅ Laravel 12 scheduler executed at '.now());
+})->everyMinute();
 
 Schedule::command('app:get-news-command')
         ->everyTwoHours()

@@ -53,12 +53,12 @@ class getNewsCommand extends Command
         $now = Carbon::now()->toIso8601String();
 
         $response = Http::get(config('services.newsapi.endpoint') . 'everything', [
-            'q'        => $city->slug,
+            'q'        => $city->name,
             'language' => 'hi',
             'sortBy'   => 'publishedAt',
             'pageSize' => 100,          // fetch more to cover 2 hours
-            'from'     => $twoHoursAgo,
-            'to'       => $now,
+            //'from'     => $twoHoursAgo,
+            //'to'       => $now,
             'apiKey'   => $apiKey,
         ]);
 
@@ -100,9 +100,11 @@ class getNewsCommand extends Command
         }
         if (!empty($articles)) {
             News::insert($articles);
-            $this->info('Inserted ' . count($articles) . ' articles for city: ' . $city->slug);
+            $this->info('Inserted ' . count($articles) . ' articles for city: ' . $city->name);
+            Log::info('Inserted ' . count($articles) . ' articles for city: ' . $city->name);
         } else {
-            $this->info('No news articles found for city: ' . $city->slug);
+            Log::info('No news articles found for city:'. $city->name);
+            $this->info('No news articles found for city: ' . $city->name);
         }      
         
     }  

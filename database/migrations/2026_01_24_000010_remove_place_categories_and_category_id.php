@@ -9,34 +9,48 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Schema::hasTable('place_categories')) {
-            Schema::drop('place_categories');
-        }
+        // if (Schema::hasTable('place_categories')) {
+        //     Schema::drop('place_categories');
+        // }
+
+        // if (Schema::hasColumn('places', 'category_id')) {
+        //     $driver = Schema::getConnection()->getDriverName();
+        //     if ($driver === 'mysql') {
+        //         try {
+        //             DB::statement('ALTER TABLE places DROP FOREIGN KEY places_category_id_foreign');
+        //         } catch (\Throwable $e) {
+        //             // ignore if FK doesn't exist
+        //         }
+        //     }
+
+        //     Schema::table('places', function (Blueprint $table) {
+        //         try {
+        //             if (method_exists($table, 'dropConstrainedForeignId')) {
+        //                 $table->dropConstrainedForeignId('category_id');
+        //                 return; // column dropped with FK
+        //             }
+        //         } catch (\Throwable $e) {
+        //             // fallback to plain drop
+        //         }
+
+        //         if (Schema::hasColumn('places', 'category_id')) {
+        //             $table->dropColumn('category_id');
+        //         }
+        //     });
+        // }
 
         if (Schema::hasColumn('places', 'category_id')) {
-            $driver = Schema::getConnection()->getDriverName();
-            if ($driver === 'mysql') {
-                try {
-                    DB::statement('ALTER TABLE places DROP FOREIGN KEY places_category_id_foreign');
-                } catch (\Throwable $e) {
-                    // ignore if FK doesn't exist
-                }
-            }
-
             Schema::table('places', function (Blueprint $table) {
-                try {
-                    if (method_exists($table, 'dropConstrainedForeignId')) {
-                        $table->dropConstrainedForeignId('category_id');
-                        return; // column dropped with FK
-                    }
-                } catch (\Throwable $e) {
-                    // fallback to plain drop
-                }
-
-                if (Schema::hasColumn('places', 'category_id')) {
-                    $table->dropColumn('category_id');
-                }
+                // Drop the foreign key constraint
+                $table->dropForeign(['category_id']);
+                // Drop the column
+                $table->dropColumn('category_id');
             });
+        }
+
+        // Step 2: Now drop the place_categories table
+        if (Schema::hasTable('place_categories')) {
+            Schema::dropIfExists('place_categories');
         }
     }
 

@@ -61,7 +61,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 cd /home/u125920537/domains/indiancities.in/public_html
 
-/opt/alt/php82/usr/bin/php app:get-news-command
+/opt/alt/php82/usr/bin/php artisan app:get-news-command
 
 ssh -p 65002 u125920537@93.127.208.112
 allfreePokerr@22
