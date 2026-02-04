@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\News;
 use App\Models\Place;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -50,8 +51,17 @@ class CityController extends Controller
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
+        $video = Video::with('city')
+            ->where('status', 1)
+            ->where('city_id', $city->id)
+            ->orderBy('created_at') // optional: exclude current video
+            ->first();
+        $videos = Video::with('city')
+            ->where('status', 1)
+            ->where('city_id', $city->id)
+            ->orderBy('created_at')->limit(6)->get();
 
-        return view('cities.show', compact('city', 'news', 'cities', 'places'));
+        return view('cities.show', compact('city', 'news', 'cities', 'places', 'video', 'videos'));
     }
     public function cityView($slug)
     {

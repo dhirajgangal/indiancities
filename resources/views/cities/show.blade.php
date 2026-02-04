@@ -92,8 +92,53 @@
 
         <!-- Right Column (Static Advertisement) -->
         <div class="news-right">
+            @if($video)
+            <a class="mini-card-link" href="{{ url('/videos/' . ($video->id ?? $video->id)) }}">
+                <article class="mini-card">
+
+                    @php
+                    // Extract YouTube video ID from various possible URL formats
+                    preg_match('/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"\'<> #]+)/', $video->youtube_url, $matches);
+                        $videoId = $matches[5] ?? null;
+                        @endphp
+                        <iframe width="100%" height="auto" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+
+                        <a class="mini-title" href="{{ url('/videos/' . ($video->id ?? $video->id)) }}">
+                            {{ $video->title }}
+                        </a>
+                </article>
+            </a>
+            @endif
             <img src="{{ asset('assets/image 11 (1).png') }}" alt="city-advertisement" class="city-advertisement">
         </div>
+
     </div>
+    @if ($videos->isEmpty())
+    @else
+    <div class="container video-section">
+        <h2 class="section-title">वीडियो</h2>
+        <div class="video-grid">
+            @foreach($videos as $video)
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <div class="video-el">
+                        @php
+                        // Extract YouTube video ID from various possible URL formats
+                        preg_match('/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"\'<> #]+)/', $video->youtube_url, $matches);
+                            $videoId = $matches[5] ?? null;
+                            @endphp
+                            <iframe width="400" height="200" src="https://www.youtube.com/embed/{{ $videoId }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <!-- <p class="mb-0">{{ $video->title }}</p> -->
+                    <a href="{{ url('/videos/' . ($video->id ?? $video->id)) }}" class="mb-0">{{ $video->title }}</a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
 </section>
 @endsection

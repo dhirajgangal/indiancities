@@ -85,11 +85,3 @@ Pass :  allfreePokerr@22
 2 City history will enter from admin 
 3 Video will be added from admin 
 4 remove news 15 days old
-
-
-1 show city history on city page at top - Done
-2 show related video in same city page - done
-3 make city history detaild page - done
-4 same for video detail page - done
-
-
