@@ -1,5 +1,18 @@
 @extends('layouts.mainheader')
 
+<style>
+    a.footer-link {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+        margin-left: 16px;
+        color: #ef6546;
+    }
+    a.footer-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
 @section('content')
 <!-- Hero Carousel - Full Width (No Container) -->
 <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
@@ -204,9 +217,10 @@
 
         <div class="footer-bottom">
             <div class="footer-copyright">
-                <span>Copyright © 2024 - Indian Cities - All rights reserved</span>
+                <span>Copyright © 2025 - Indian Cities - All rights reserved</span>
             </div>
             <div class="footer-social">
+
                 <a href="https://instagram.com" target="_blank" class="social-icon">
                     <i class="fab fa-instagram"></i>
                 </a>
@@ -215,6 +229,13 @@
                 </a>
                 <a href="https://twitter.com" target="_blank" class="social-icon">
                     <i class="fab fa-twitter"></i>
+                </a>
+
+                <a href="{{ url('/privacy') }}" class="footer-link">
+                    Privacy Policy
+                </a>
+                <a href="{{ url('/terms') }}" class="footer-link">
+                    Terms of Service
                 </a>
             </div>
         </div>

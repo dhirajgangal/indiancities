@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\NewsController;
 
 // ===== PUBLIC ROUTES =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
+// Static policy/terms pages
+Route::view('/privacy', 'privacy')->name('privacy.show');
+Route::view('/terms', 'terms')->name('terms.show');
 // City Routes
 Route::get('/cities', [CityController::class, 'index'])->name('cities.index');
 Route::get('/cities/{slug}', [CityController::class, 'show'])->name('cities.show');
